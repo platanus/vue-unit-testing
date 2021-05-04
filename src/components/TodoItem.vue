@@ -8,6 +8,7 @@
     {{ todo.detail }}
     <span
       class="text-xs"
+      data-testid="todo-date"
       v-if="todo.completed"
     >&mdash; {{ todo.completedDate | formatDate }}</span>
   </label>

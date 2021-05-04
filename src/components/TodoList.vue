@@ -7,6 +7,7 @@
       <TodoItem
         :todo="todo"
         @toggle="toggleTodo(todo)"
+        data-test="todo-item"
       />
     </li>
     <li class="flex">

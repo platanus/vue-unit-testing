@@ -1,5 +1,7 @@
 # vue-testing
 
+Unit tests examples with Vue + Jest + Vue Test Utils
+
 ## Project setup
 ```
 yarn install

@@ -32,13 +32,13 @@ const initialState = {
   },
 };
 
-const mutations = {
+export const mutations = {
   setTodo(state, payload) {
     Vue.set(state.todos, payload.id, payload);
   },
 };
 
-const actions = {
+export const actions = {
   toggleTodo({ commit, state }, payload) {
     const todo = state.todos[payload];
     // eslint-disable-next-line no-negated-condition
@@ -52,15 +52,16 @@ const actions = {
     commit('setTodo', { ...todo, completed, completedDate });
   },
   addTodo({ commit, getters }, payload) {
+    const lastTodo = getters.todosAsArray[getters.todosAsArray.length - 1];
     commit('setTodo', {
-      id: getters.todosAsArray[getters.todosAsArray.length - 1].id + 1,
+      id: lastTodo ? lastTodo.id + 1 : 1,
       completed: false,
       detail: payload,
     });
   },
 };
 
-const getters = {
+export const getters = {
   todosAsArray(state) {
     return Object.values(state.todos).sort((a, b) => a.id - b.id);
   },
