@@ -1,28 +1,43 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div
+    id="app"
+    class="w-56 mx-auto"
+  >
+    <div class="mb-10">
+      <TodoList v-if="type === 'normal'" />
+      <TodoListWithRequest v-if="type === 'request'" />
+    </div>
+    <div class="flex">
+      <button
+        class="px-2 py-1 mr-2 bg-blue-600"
+        @click="type = 'normal'"
+      >
+        Normal
+      </button>
+      <button
+        class="px-2 py-1 bg-green-600"
+        @click="type = 'request'"
+      >
+        Request
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import TodoList from './components/TodoList.vue';
+import TodoListWithRequest from './components/TodoListWithRequest.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    TodoList,
+    TodoListWithRequest,
+  },
+  data() {
+    return {
+      type: 'normal',
+    };
+  },
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
