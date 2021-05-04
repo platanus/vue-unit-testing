@@ -6,24 +6,28 @@ Vue.use(Vuex);
 const initialState = {
   todos: {
     1: {
-      'id': 1,
-      'completed': true,
-      'detail': 'Install Vue',
+      completedDate: new Date('2021-04-30T14:50:00.630Z'),
+      id: 1,
+      completed: true,
+      detail: 'Install Vue',
     },
     2: {
-      'id': 2,
-      'completed': true,
-      'detail': 'Install Jest',
+      completedDate: new Date('2021-04-30T14:52:00.630Z'),
+      id: 2,
+      completed: true,
+      detail: 'Install Jest',
     },
     3: {
-      'id': 3,
-      'completed': true,
-      'detail': 'Install Tailwind',
+      completedDate: new Date('2021-04-30T14:56:00.630Z'),
+      id: 3,
+      completed: true,
+      detail: 'Install Tailwind',
     },
     4: {
-      'id': 4,
-      'completed': true,
-      'detail': 'Make the simplest possible todo app',
+      completedDate: new Date('2021-04-30T14:59:00.630Z'),
+      id: 4,
+      completed: true,
+      detail: 'Make the simplest possible todo app',
     },
   },
 };
@@ -37,7 +41,15 @@ const mutations = {
 const actions = {
   toggleTodo({ commit, state }, payload) {
     const todo = state.todos[payload];
-    commit('setTodo', { ...todo, completed: !todo.completed });
+    // eslint-disable-next-line no-negated-condition
+    const completed = !todo.completed;
+    let completedDate;
+    if (completed) {
+      completedDate = new Date();
+    } else {
+      completedDate = null;
+    }
+    commit('setTodo', { ...todo, completed, completedDate });
   },
   addTodo({ commit, getters }, payload) {
     commit('setTodo', {
@@ -55,6 +67,7 @@ const getters = {
 };
 
 export default new Vuex.Store({
+  strict: true,
   state: { ...initialState },
   mutations,
   actions,
