@@ -21,7 +21,6 @@
 <script>
 import TodoItem from './TodoItem';
 import AddTodo from './AddTodo';
-import todosApi from '../api/todos';
 
 export default {
   components: {
@@ -31,34 +30,20 @@ export default {
   data() {
     return {
       newTodo: null,
-      todos: [],
     };
   },
-  async created() {
-    try {
-      this.todos = await todosApi.get();
-    } catch {
-      this.error = true;
-    }
+  computed: {
+    todos() {
+      return this.$store.getters.todosAsArray;
+    },
   },
   methods: {
-    async toggle(todo) {
-      try {
-        todo.completed = !todo.completed;
-        await todosApi.toggle(todo.id, todo.completed);
-        this.todos = await todosApi.get();
-      } catch {
-        todo.completed = !todo.completed;
-        this.error = true;
-      }
+    toggle(todo) {
+      this.$store.dispatch('toggleTodo', todo.id);
     },
-    async addTodo() {
-      try {
-        await todosApi.add(this.newTodo);
-        this.todos = await todosApi.get();
-      } catch {
-        this.error = true;
-      }
+    addTodo() {
+      this.$store.dispatch('addTodo', this.newTodo);
+      this.newTodo = null;
     },
   },
 };
